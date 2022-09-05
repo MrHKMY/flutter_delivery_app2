@@ -29,7 +29,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Sign Up Page")),
+      appBar: AppBar(title: const Text("New Driver Sign Up")),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15),

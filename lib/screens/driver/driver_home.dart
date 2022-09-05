@@ -1,4 +1,5 @@
 import 'package:delivery_app2/screens/admin/add_location.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,8 @@ class DriverHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Driver Panel"),
@@ -23,6 +26,16 @@ class DriverHome extends StatelessWidget {
               ElevatedButton(onPressed: () {}, child: Text("My Ongoing Jobs")),
               ElevatedButton(onPressed: () {}, child: Text("Edit Profile")),
               ElevatedButton(onPressed: () {}, child: Text("View Past Jobs")),
+              Row(
+                children: [
+                  Text(user.email!),
+                  ElevatedButton(
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                      },
+                      child: Text("Log out")),
+                ],
+              ),
             ],
           ),
         ),

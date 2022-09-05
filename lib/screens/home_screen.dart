@@ -2,6 +2,7 @@ import 'package:delivery_app2/screens/admin/admin_home.dart';
 import 'package:delivery_app2/screens/admin/admin_login.dart';
 import 'package:delivery_app2/screens/customer/customer_home.dart';
 import 'package:delivery_app2/screens/driver/driver_home.dart';
+import 'package:delivery_app2/screens/driver/driver_login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
                       child: Text("Admin Log in")),
                   ElevatedButton(
                       onPressed: () {
-                        //Get.to(() => (CustomerHome()));
+                        Get.to(() => (DriverLoginScreen()));
                       },
                       child: Text("Driver Log in"))
                 ],

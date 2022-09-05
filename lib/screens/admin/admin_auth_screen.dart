@@ -1,19 +1,20 @@
+import 'package:delivery_app2/widgets/admin_login_widget.dart';
 import 'package:delivery_app2/widgets/login_widget.dart';
 import 'package:delivery_app2/widgets/signup_widget.dart';
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+class AdminAuthPage extends StatefulWidget {
+  const AdminAuthPage({Key? key}) : super(key: key);
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AdminAuthPage> createState() => _AdminAuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AdminAuthPageState extends State<AdminAuthPage> {
   bool isLogin = true;
   @override
   Widget build(BuildContext context) => isLogin
-      ? LoginWidget(
+      ? AdminLoginWidget(
           onClickedSignUp: toggle,
         )
       : SignUpWidget(onClickedSignIn: toggle);

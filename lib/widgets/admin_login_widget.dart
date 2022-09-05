@@ -4,16 +4,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginWidget extends StatefulWidget {
+class AdminLoginWidget extends StatefulWidget {
   final VoidCallback onClickedSignUp;
-  const LoginWidget({Key? key, required this.onClickedSignUp})
+  const AdminLoginWidget({Key? key, required this.onClickedSignUp})
       : super(key: key);
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<AdminLoginWidget> createState() => _AdminLoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _AdminLoginWidgetState extends State<AdminLoginWidget> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -27,7 +27,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login as Driver")),
+      appBar: AppBar(title: const Text("Admin Login Only")),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15),
@@ -57,25 +57,25 @@ class _LoginWidgetState extends State<LoginWidget> {
             ),
             ElevatedButton.icon(
               icon: const Icon(Icons.lock_open_outlined),
-              label: const Text("Sign In as Driver"),
+              label: const Text("Sign In as Admin"),
               onPressed: signIn,
             ),
             const SizedBox(
               height: 24,
             ),
-            RichText(
-                text: TextSpan(
-                    style: const TextStyle(color: Colors.black),
-                    text: "Dont have an account?   ",
-                    children: [
-                  TextSpan(
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = widget.onClickedSignUp,
-                      text: "Sign Up",
-                      style: const TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue))
-                ])),
+            // RichText(
+            //     text: TextSpan(
+            //         style: const TextStyle(color: Colors.black),
+            //         text: "Dont have an account?   ",
+            //         children: [
+            //       TextSpan(
+            //           recognizer: TapGestureRecognizer()
+            //             ..onTap = widget.onClickedSignUp,
+            //           text: "Sign Up",
+            //           style: const TextStyle(
+            //               decoration: TextDecoration.underline,
+            //               color: Colors.blue))
+            //     ])),
           ]),
         ),
       ),
@@ -87,13 +87,22 @@ class _LoginWidgetState extends State<LoginWidget> {
     //     context: context,
     //     barrierDismissible: false,
     //     builder: (context) => const Center(child: CircularProgressIndicator()));
+    String theEmail = emailController.text.trim();
 
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-    } on FirebaseAuthException catch (e) {
-      Get.snackbar("Ooops", e.message!,
+    if (theEmail.compareTo("admin1@delivery.com") == 0 ||
+        theEmail.compareTo("admin2@delivery.com") == 0) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: theEmail, password: passwordController.text.trim());
+      } on FirebaseAuthException catch (e) {
+        Get.snackbar("Ooops", e.message!,
+            //e.message ? null : e.message,
+            //icon: Icon(Icons.block, color: Colors.black),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red);
+      }
+    } else {
+      Get.snackbar("Ooops", "Wrong Email",
           //e.message ? null : e.message,
           //icon: Icon(Icons.block, color: Colors.black),
           snackPosition: SnackPosition.BOTTOM,
