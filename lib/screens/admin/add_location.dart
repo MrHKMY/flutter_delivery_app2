@@ -63,6 +63,7 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                       });
                     },
                     buttonElevation: 0,
+                    dropdownMaxHeight: 300,
                     buttonPadding: const EdgeInsets.only(left: 14, right: 14),
                     itemPadding: const EdgeInsets.only(left: 14, right: 14),
                     buttonDecoration: BoxDecoration(

@@ -1,3 +1,4 @@
+import 'package:delivery_app2/widgets/signup_form.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -100,11 +101,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     //     context: context,
     //     barrierDismissible: false,
     //     builder: (context) => const Center(child: CircularProgressIndicator()));
+    String theEmail = emailController.text.trim();
 
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+      //Get.to(() => (SignUpDataForm(email: theEmail)));
     } on FirebaseAuthException catch (e) {
       //print(e.message);
 

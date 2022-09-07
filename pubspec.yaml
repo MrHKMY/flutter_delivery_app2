@@ -41,6 +41,7 @@ dependencies:
   dropdown_button2: ^1.7.2
   firebase_auth: ^3.7.0
   email_validator: ^2.1.17
+  grouped_list: ^5.1.2
 
 dev_dependencies:
   flutter_test:
