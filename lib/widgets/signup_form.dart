@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delivery_app2/controller/location_controller.dart';
+import 'package:delivery_app2/models/driver_model.dart';
 import 'package:delivery_app2/models/location_model.dart';
 import 'package:delivery_app2/screens/admin/view_location_screen.dart';
 import 'package:delivery_app2/services/database_service.dart';
@@ -73,7 +74,7 @@ class _SignUpDataFormState extends State<SignUpDataForm> {
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(labelText: "Name"),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) => value != null && value.length < 3
+                  validator: (value) => value != null && value.isEmpty
                       ? "Name cannot be empty"
                       : null),
               const SizedBox(
@@ -203,14 +204,22 @@ class _SignUpDataFormState extends State<SignUpDataForm> {
                   print(selectedItems);
                   print(areaSelected);
                   if (nameController.text != null && selectedItems != null) {
-                    databaseService.saveDriverInfo(
-                        nameController.text,
-                        widget.userId,
-                        phoneController.text,
-                        0,
-                        selectedItems,
-                        areaSelected,
-                        "available");
+                    DriverModel driverModel = DriverModel(
+                        userId: widget.userId,
+                        name: nameController.text,
+                        phone: phoneController.text,
+                        status: "available",
+                        jobCompleted: 0,
+                        state: selectedItems,
+                        area: areaSelected);
+                    databaseService.saveDriverInfo(driverModel);
+                    // nameController.text,
+                    // widget.userId,
+                    // phoneController.text,
+                    // 0,
+                    // selectedItems,
+                    // areaSelected,
+                    // "available");
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Success')),

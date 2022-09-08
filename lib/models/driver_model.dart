@@ -8,8 +8,8 @@ import 'package:delivery_app2/models/location_model.dart';
 class DriverModel extends Equatable {
   final String userId;
   final String name;
-  final int phone;
-  final String email;
+  final String phone;
+  final String status;
   final int jobCompleted;
   final String state;
   final String area;
@@ -18,7 +18,7 @@ class DriverModel extends Equatable {
       {required this.userId,
       required this.name,
       required this.phone,
-      required this.email,
+      required this.status,
       required this.jobCompleted,
       required this.state,
       required this.area});
@@ -29,7 +29,7 @@ class DriverModel extends Equatable {
       userId,
       name,
       phone,
-      email,
+      status,
       jobCompleted,
       state,
       area,
@@ -39,7 +39,7 @@ class DriverModel extends Equatable {
   DriverModel copyWith({
     String? userId,
     String? name,
-    int? phone,
+    String? phone,
     String? email,
     int? jobCompleted,
     String? state,
@@ -49,7 +49,7 @@ class DriverModel extends Equatable {
       userId: userId ?? this.userId,
       name: name ?? this.name,
       phone: phone ?? this.phone,
-      email: email ?? this.email,
+      status: email ?? this.status,
       jobCompleted: jobCompleted ?? this.jobCompleted,
       state: state ?? this.state,
       area: area ?? this.area,
@@ -62,7 +62,7 @@ class DriverModel extends Equatable {
     result.addAll({'userId': userId});
     result.addAll({'name': name});
     result.addAll({'phone': phone});
-    result.addAll({'email': email});
+    result.addAll({'email': status});
     result.addAll({'jobCompleted': jobCompleted});
     result.addAll({'state': state});
     result.addAll({'area': area});
@@ -75,7 +75,7 @@ class DriverModel extends Equatable {
       userId: snapshot['userId'] ?? '',
       name: snapshot['name'] ?? '',
       phone: snapshot['phone']?.toInt() ?? 0,
-      email: snapshot['email'] ?? '',
+      status: snapshot['email'] ?? '',
       jobCompleted: snapshot['jobCompleted']?.toInt() ?? 0,
       state: snapshot['state'] ?? '',
       area: snapshot['area'] ?? '',
@@ -87,7 +87,7 @@ class DriverModel extends Equatable {
       userId: map['userId'] ?? '',
       name: map['name'] ?? '',
       phone: map['phone']?.toInt() ?? 0,
-      email: map['email'] ?? '',
+      status: map['email'] ?? '',
       jobCompleted: map['jobCompleted']?.toInt() ?? 0,
       state: map['state'] ?? '',
       area: map['area'] ?? '',
@@ -101,6 +101,6 @@ class DriverModel extends Equatable {
 
   @override
   String toString() {
-    return 'DriverModel(userId: $userId, name: $name, phone: $phone, email: $email, jobCompleted: $jobCompleted, state: $state, area: $area)';
+    return 'DriverModel(userId: $userId, name: $name, phone: $phone, email: $status, jobCompleted: $jobCompleted, state: $state, area: $area)';
   }
 }

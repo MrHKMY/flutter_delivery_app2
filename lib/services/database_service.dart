@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:delivery_app2/models/driver_model.dart';
 import 'package:delivery_app2/models/location_model.dart';
+import 'package:delivery_app2/models/order_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   CollectionReference location =
       FirebaseFirestore.instance.collection('location');
-  final user = FirebaseAuth.instance.currentUser!;
 
   Future<void> saveNewLocation(
     String state,
@@ -31,23 +32,33 @@ class DatabaseService {
     });
   }
 
-  Future<void> saveDriverInfo(
-    String name,
-    String uid,
-    String phone,
-    int jobCompleted,
-    String state,
-    String area,
-    String status,
-  ) {
-    return FirebaseFirestore.instance.collection('drivers').doc(user.uid).set({
-      'name': name,
-      'uid': uid,
-      'phone': phone,
-      'jobCompleted': jobCompleted,
-      'state': state,
-      'area': area,
-      'status': status,
-    });
+  Future<void> saveDriverInfo(DriverModel driverModel
+      // String name,
+      // String uid,
+      // String phone,
+      // int jobCompleted,
+      // String state,
+      // String area,
+      // String status,
+      ) {
+    final user = FirebaseAuth.instance.currentUser!;
+    return FirebaseFirestore.instance
+        .collection('drivers')
+        .doc(user.uid)
+        .set(driverModel.toMap()
+            //   {
+            //   'name': name,
+            //   'uid': uid,
+            //   'phone': phone,
+            //   'jobCompleted': jobCompleted,
+            //   'state': state,
+            //   'area': area,
+            //   'status': status,
+            // }
+            );
+  }
+
+  saveOrder(OrderModel orderModel) async {
+    await _firebaseFirestore.collection("orders").add(orderModel.toMap());
   }
 }
