@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delivery_app2/models/order_model.dart';
+import 'package:delivery_app2/screens/customer/confirmation_screen.dart';
 import 'package:delivery_app2/screens/customer/customer_home.dart';
 import 'package:delivery_app2/services/database_service.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -29,6 +30,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   var receiverSelectedItems;
   var receiverAreaSelected;
   int stepperIndex = 0;
+  late int orderNumber;
 
   List<String> items = [
     'Perlis',
@@ -49,6 +51,20 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
     'Labuan',
   ];
 
+  // @override
+  // void initState() {
+  //   getTracking();
+  //   print(a);
+  //   super.initState();
+  // }
+
+  // getTracking() {
+  //   return FirebaseFirestore.instance
+  //       .collection("tracking")
+  //       .snapshots()
+  //       .map((snapshot) => snapshot.docs.map((e) => a));
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +77,6 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
           final isLastStep = stepperIndex == getSteps().length - 1;
 
           if (isLastStep) {
-            print("Complete");
             // Todo : send data to firebase
             try {
               OrderModel orderModel = OrderModel(
@@ -75,13 +90,18 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                   receiverAddress: receiverAddressController.text,
                   receiverState: receiverSelectedItems,
                   receiverArea: receiverAreaSelected,
-                  orderNumber: 0,
+                  orderNumber: orderNumber,
                   status: "New Order");
               await databaseService.saveOrder(orderModel);
+              //TODO(1) : need to increment orderNumber here
+              //await databaseService.saveTracking(orderNumber);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Success')),
               );
-              Get.off(() => const CustomerHome());
+
+              // Get.off(() => ConfirmationScreen(
+              //       theOrder: orderNumber,
+              //     ));
             } catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Error: Something went wrong')));
@@ -121,6 +141,30 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
           );
         },
       ),
+    );
+  }
+
+  getTrackingNumber() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection("tracking").snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.connectionState == ConnectionState.active ||
+            snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            return const Text('Error');
+          } else if (snapshot.hasData) {
+            orderNumber = snapshot.data!.docs[0]['orderNumber'];
+
+            return Text("Order Number: ${orderNumber.toString()}");
+          } else {
+            return const Text('Empty data');
+          }
+        } else {
+          return Text('State: ${snapshot.connectionState}');
+        }
+      },
     );
   }
 
@@ -474,6 +518,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                     ],
                   ),
                 ),
+                getTrackingNumber()
               ],
             )),
       ];
