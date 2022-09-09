@@ -61,4 +61,12 @@ class DatabaseService {
   saveOrder(OrderModel orderModel) async {
     await _firebaseFirestore.collection("orders").add(orderModel.toMap());
   }
+
+  saveTracking(int orderNumber) async {
+    int added = orderNumber + 1;
+    await _firebaseFirestore
+        .collection("tracking")
+        .doc()
+        .update({'orderNumber': added});
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:delivery_app2/screens/admin/add_location.dart';
+import 'package:delivery_app2/screens/customer/confirmation_screen.dart';
 import 'package:delivery_app2/screens/customer/create_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,11 @@ class CustomerHome extends StatelessWidget {
                     Get.to(() => (CreateOrderScreen()));
                   },
                   child: Text("Crate Order")),
-              ElevatedButton(onPressed: () {}, child: Text("Track Order")),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => (ConfirmationScreen()));
+                  },
+                  child: Text("Track Order")),
               ElevatedButton(onPressed: () {}, child: Text("Order History")),
             ],
           ),
