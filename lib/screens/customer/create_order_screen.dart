@@ -94,14 +94,14 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                   status: "New Order");
               await databaseService.saveOrder(orderModel);
               //TODO(1) : need to increment orderNumber here
-              //await databaseService.saveTracking(orderNumber);
+              await databaseService.saveTracking(orderNumber);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Success')),
               );
 
-              // Get.off(() => ConfirmationScreen(
-              //       theOrder: orderNumber,
-              //     ));
+              Get.off(() => ConfirmationScreen(
+                    theOrder: orderNumber,
+                  ));
             } catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Error: Something went wrong')));
@@ -157,7 +157,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
           } else if (snapshot.hasData) {
             orderNumber = snapshot.data!.docs[0]['orderNumber'];
 
-            return Text("Order Number: ${orderNumber.toString()}");
+            //return Text("Order Number: ${orderNumber.toString()}");
+            return Text("");
           } else {
             return const Text('Empty data');
           }

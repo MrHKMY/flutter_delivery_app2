@@ -24,7 +24,7 @@ class CustomerHome extends StatelessWidget {
                   child: Text("Crate Order")),
               ElevatedButton(
                   onPressed: () {
-                    Get.to(() => (ConfirmationScreen()));
+                    // Get.to(() => (ConfirmationScreen()));
                   },
                   child: Text("Track Order")),
               ElevatedButton(onPressed: () {}, child: Text("Order History")),

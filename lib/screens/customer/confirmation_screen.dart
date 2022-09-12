@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ConfirmationScreen extends StatefulWidget {
-  const ConfirmationScreen({Key? key}) : super(key: key);
+  const ConfirmationScreen({Key? key, required this.theOrder})
+      : super(key: key);
+  final int theOrder;
 
   @override
   State<ConfirmationScreen> createState() => _ConfirmationScreenState();
@@ -13,27 +13,70 @@ class ConfirmationScreen extends StatefulWidget {
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection("tracking").snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: const CircularProgressIndicator());
-        } else if (snapshot.connectionState == ConnectionState.active ||
-            snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return const Text('Error');
-          } else if (snapshot.hasData) {
-            int a = snapshot.data!.docs[0]['orderNumber'];
+    int orderNum = widget.theOrder - 1;
 
-            return Center(child: Text(a.toString()));
-          } else {
-            return const Text('Empty data');
-          }
-        } else {
-          return Text('State: ${snapshot.connectionState}');
-        }
-      },
-    ));
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Confirmation Screen"),
+        ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Thank You',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+            ),
+            const Text(
+              'Your order has been successfully placed',
+              style: TextStyle(fontSize: 18),
+            ),
+            Text(
+              "Order Number: ${orderNum.toString()}",
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ],
+        )));
+    // body: StreamBuilder<QuerySnapshot>(
+    //   stream: FirebaseFirestore.instance.collection("tracking").snapshots(),
+    //   builder: (context, snapshot) {
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return const Center(child: CircularProgressIndicator());
+    //     } else if (snapshot.connectionState == ConnectionState.active ||
+    //         snapshot.connectionState == ConnectionState.done) {
+    //       if (snapshot.hasError) {
+    //         return const Text('Error');
+    //       } else if (snapshot.hasData) {
+    //         int a = snapshot.data!.docs[0]['orderNumber'];
+    //         a = a - 1;
+
+    //         return Center(
+    //             child: Column(
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           children: [
+    //             const Text(
+    //               'Thank You',
+    //               style:
+    //                   TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+    //             ),
+    //             const Text(
+    //               'Your order has been successfully placed',
+    //               style: TextStyle(fontSize: 18),
+    //             ),
+    //             Text(
+    //               "Order Number: ${a.toString()}",
+    //               style: const TextStyle(
+    //                   fontWeight: FontWeight.bold, fontSize: 18),
+    //             ),
+    //           ],
+    //         ));
+    //       } else {
+    //         return const Text('Empty data');
+    //       }
+    //     } else {
+    //       return Text('State: ${snapshot.connectionState}');
+    //     }
+    //   },
+    // ));
   }
 }

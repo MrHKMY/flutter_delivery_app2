@@ -66,7 +66,7 @@ class DatabaseService {
     int added = orderNumber + 1;
     await _firebaseFirestore
         .collection("tracking")
-        .doc()
+        .doc("trackingDocumentID")
         .update({'orderNumber': added});
   }
 }
