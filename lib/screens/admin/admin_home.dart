@@ -1,4 +1,5 @@
 import 'package:delivery_app2/screens/admin/add_location.dart';
+import 'package:delivery_app2/screens/admin/admin_view_order.dart';
 import 'package:delivery_app2/screens/admin/view_location_screen.dart';
 import 'package:delivery_app2/screens/admin/view_specific.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,7 +42,9 @@ class AdminHome extends StatelessWidget {
                   },
                   child: Text("View Location")),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => (AdminViewOrder()));
+                  },
                   child: Text("View Order/Specific State only")),
               ElevatedButton(onPressed: () {}, child: Text("View All Driver")),
               ElevatedButton(onPressed: () {}, child: Text("View Reports")),
