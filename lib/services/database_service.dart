@@ -62,6 +62,11 @@ class DatabaseService {
     await _firebaseFirestore.collection("orders").add(orderModel.toMap());
   }
 
+  Stream<List<OrderModel>> getOrders() {
+    return _firebaseFirestore.collection("orders").snapshots().map((snapshot) =>
+        snapshot.docs.map((e) => OrderModel.fromSnapshot(e)).toList());
+  }
+
   saveTracking(int orderNumber) async {
     int added = orderNumber + 1;
     await _firebaseFirestore
