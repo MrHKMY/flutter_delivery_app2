@@ -211,7 +211,8 @@ class _SignUpDataFormState extends State<SignUpDataForm> {
                         status: "available",
                         jobCompleted: 0,
                         state: selectedItems,
-                        area: areaSelected);
+                        area: areaSelected,
+                        onGoingJob: "none");
                     databaseService.saveDriverInfo(driverModel);
                     // nameController.text,
                     // widget.userId,
