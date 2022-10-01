@@ -13,6 +13,7 @@ class DriverModel extends Equatable {
   final int jobCompleted;
   final String state;
   final String area;
+  final String onGoingJob;
 
   DriverModel(
       {required this.userId,
@@ -21,7 +22,8 @@ class DriverModel extends Equatable {
       required this.status,
       required this.jobCompleted,
       required this.state,
-      required this.area});
+      required this.area,
+      required this.onGoingJob});
 
   @override
   List<Object> get props {
@@ -33,6 +35,7 @@ class DriverModel extends Equatable {
       jobCompleted,
       state,
       area,
+      onGoingJob,
     ];
   }
 
@@ -44,6 +47,7 @@ class DriverModel extends Equatable {
     int? jobCompleted,
     String? state,
     String? area,
+    String? onGoingJob,
   }) {
     return DriverModel(
       userId: userId ?? this.userId,
@@ -53,6 +57,7 @@ class DriverModel extends Equatable {
       jobCompleted: jobCompleted ?? this.jobCompleted,
       state: state ?? this.state,
       area: area ?? this.area,
+      onGoingJob: onGoingJob ?? this.onGoingJob,
     );
   }
 
@@ -66,6 +71,7 @@ class DriverModel extends Equatable {
     result.addAll({'jobCompleted': jobCompleted});
     result.addAll({'state': state});
     result.addAll({'area': area});
+    result.addAll({'onGoingJob': onGoingJob});
 
     return result;
   }
@@ -79,6 +85,7 @@ class DriverModel extends Equatable {
       jobCompleted: snapshot['jobCompleted']?.toInt() ?? 0,
       state: snapshot['state'] ?? '',
       area: snapshot['area'] ?? '',
+      onGoingJob: snapshot['onGoingJob'] ?? '',
     );
   }
 
@@ -91,6 +98,7 @@ class DriverModel extends Equatable {
       jobCompleted: map['jobCompleted']?.toInt() ?? 0,
       state: map['state'] ?? '',
       area: map['area'] ?? '',
+      onGoingJob: map['onGoingJob'],
     );
   }
 
@@ -101,6 +109,6 @@ class DriverModel extends Equatable {
 
   @override
   String toString() {
-    return 'DriverModel(userId: $userId, name: $name, phone: $phone, email: $status, jobCompleted: $jobCompleted, state: $state, area: $area)';
+    return 'DriverModel(userId: $userId, name: $name, phone: $phone, email: $status, jobCompleted: $jobCompleted, state: $state, area: $area, onGoingJob: $onGoingJob)';
   }
 }
