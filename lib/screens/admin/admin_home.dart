@@ -1,4 +1,5 @@
 import 'package:delivery_app2/screens/admin/add_location.dart';
+import 'package:delivery_app2/screens/admin/admin_view_driver.dart';
 import 'package:delivery_app2/screens/admin/admin_view_order.dart';
 import 'package:delivery_app2/screens/admin/view_location_screen.dart';
 import 'package:delivery_app2/screens/admin/view_specific.dart';
@@ -46,7 +47,11 @@ class AdminHome extends StatelessWidget {
                     Get.to(() => (AdminViewOrder()));
                   },
                   child: Text("View Order/Specific State only")),
-              ElevatedButton(onPressed: () {}, child: Text("View All Driver")),
+              ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => (AdminViewDriver()));
+                  },
+                  child: Text("View All Driver")),
               ElevatedButton(onPressed: () {}, child: Text("View Reports")),
               ElevatedButton(onPressed: () {}, child: Text("Generate pdf")),
             ],
