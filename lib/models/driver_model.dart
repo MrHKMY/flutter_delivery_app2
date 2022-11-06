@@ -80,7 +80,7 @@ class DriverModel extends Equatable {
     return DriverModel(
       userId: snapshot['userId'] ?? '',
       name: snapshot['name'] ?? '',
-      phone: snapshot['phone']?.toInt() ?? 0,
+      phone: snapshot['phone'] ?? '',
       status: snapshot['email'] ?? '',
       jobCompleted: snapshot['jobCompleted']?.toInt() ?? 0,
       state: snapshot['state'] ?? '',

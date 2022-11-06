@@ -67,6 +67,12 @@ class DatabaseService {
         snapshot.docs.map((e) => OrderModel.fromSnapshot(e)).toList());
   }
 
+  Stream<List<DriverModel>> getDrivers() {
+    return _firebaseFirestore.collection("drivers").snapshots().map(
+        (snapshot) =>
+            snapshot.docs.map((e) => DriverModel.fromSnapshot(e)).toList());
+  }
+
   saveTracking(int orderNumber) async {
     int added = orderNumber + 1;
     await _firebaseFirestore
