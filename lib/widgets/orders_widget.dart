@@ -1,12 +1,21 @@
-import 'package:delivery_app2/controller/order_controller.dart';
-import 'package:delivery_app2/models/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OrderCard extends StatelessWidget {
-  final OrderModel orderModel;
+import 'package:delivery_app2/controller/order_controller.dart';
 
-  OrderCard({super.key, required this.orderModel});
+class OrderCard extends StatelessWidget {
+  String status;
+  String senderArea;
+  String receiverArea;
+  int orderNumber;
+
+  OrderCard({
+    Key? key,
+    required this.status,
+    required this.senderArea,
+    required this.receiverArea,
+    required this.orderNumber,
+  }) : super(key: key);
 
   final OrderController locationController = Get.find();
 
@@ -31,8 +40,8 @@ class OrderCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Order: ${orderModel.orderNumber.toString()}"),
-                    Text("Status: ${orderModel.status}"),
+                    Text("Order: ${orderNumber.toString()}"),
+                    Text("Status: $status"),
                     const SizedBox(
                       height: 5,
                     ),
@@ -40,9 +49,9 @@ class OrderCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("${orderModel.senderArea}"),
+                        Text(senderArea),
                         const Icon(Icons.arrow_right_alt),
-                        Text("${orderModel.receiverArea}"),
+                        Text(receiverArea),
                       ],
                     ),
                   ],

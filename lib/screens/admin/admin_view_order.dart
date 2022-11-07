@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delivery_app2/controller/order_controller.dart';
-import 'package:delivery_app2/models/order_model.dart';
 import 'package:delivery_app2/widgets/orders_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,35 +46,49 @@ class _AdminViewOrderState extends State<AdminViewOrder> {
           ),
         ),
         body: TabBarView(children: [
-          Column(
-            children: [
-              Expanded(
-                  child: Obx(
-                () => ListView.builder(
-                    itemCount: orderController.getOrders.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        //todo: Add CircularProgressIndicator for loading the data state
-                        OrderCard(
-                            orderModel: orderController.getOrders[index])),
-              )),
-            ],
-          ),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("orders")
                 .where("status", isEqualTo: "New Order")
                 .snapshots(),
             builder: (context, snapshot) {
-              if (!snapshot.hasData || snapshot.data!.docs.length <= 0) {
-                return Center(
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return const Center(
                   child: Text("No data"),
                 );
               }
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Text(
-                        snapshot.data!.docs[index]['orderNumber'].toString());
+                    DocumentSnapshot ds = snapshot.data!.docs[index];
+                    return OrderCard(
+                        status: ds["status"],
+                        senderArea: ds["senderArea"],
+                        receiverArea: ds["receiverArea"],
+                        orderNumber: ds["orderNumber"]);
+                  });
+            },
+          ),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection("orders")
+                .where("status", isEqualTo: "In Progress")
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return const Center(
+                  child: Text("No data"),
+                );
+              }
+              return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    DocumentSnapshot ds = snapshot.data!.docs[index];
+                    return OrderCard(
+                        status: ds["status"],
+                        senderArea: ds["senderArea"],
+                        receiverArea: ds["receiverArea"],
+                        orderNumber: ds["orderNumber"]);
                   });
             },
           ),
@@ -85,16 +98,20 @@ class _AdminViewOrderState extends State<AdminViewOrder> {
                 .where("status", isEqualTo: "Complete")
                 .snapshots(),
             builder: (context, snapshot) {
-              if (!snapshot.hasData || snapshot.data!.docs.length <= 0) {
-                return Center(
+              if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return const Center(
                   child: Text("No data"),
                 );
               }
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Text(
-                        snapshot.data!.docs[index]['orderNumber'].toString());
+                    DocumentSnapshot ds = snapshot.data!.docs[index];
+                    return OrderCard(
+                        status: ds["status"],
+                        senderArea: ds["senderArea"],
+                        receiverArea: ds["receiverArea"],
+                        orderNumber: ds["orderNumber"]);
                   });
             },
           ),
