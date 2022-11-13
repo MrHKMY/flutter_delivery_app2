@@ -80,4 +80,18 @@ class DatabaseService {
         .doc("trackingDocumentID")
         .update({'orderNumber': added});
   }
+
+  Future<void> updateDriverStatus(
+    String driverModel,
+    String field,
+    String newValue,
+  ) {
+    return _firebaseFirestore
+        .collection("drivers")
+        .where("phone", isEqualTo: driverModel)
+        .get()
+        .then((value) => {
+              value.docs.first.reference.update({field: newValue})
+            });
+  }
 }
