@@ -73,7 +73,7 @@ class _AdminViewOrderState extends State<AdminViewOrder> {
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("orders")
-                .where("status", isEqualTo: "In Progress")
+                .where("status", isEqualTo: "In-Progress")
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {

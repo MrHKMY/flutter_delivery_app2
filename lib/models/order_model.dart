@@ -16,21 +16,22 @@ class OrderModel extends Equatable {
   final String receiverArea;
   final int orderNumber;
   final String status;
+  final String driverAssigned;
 
-  OrderModel({
-    required this.senderName,
-    required this.senderPhone,
-    required this.senderAddress,
-    required this.senderState,
-    required this.senderArea,
-    required this.receiverName,
-    required this.receiverPhone,
-    required this.receiverAddress,
-    required this.receiverState,
-    required this.receiverArea,
-    required this.orderNumber,
-    required this.status,
-  });
+  OrderModel(
+      {required this.senderName,
+      required this.senderPhone,
+      required this.senderAddress,
+      required this.senderState,
+      required this.senderArea,
+      required this.receiverName,
+      required this.receiverPhone,
+      required this.receiverAddress,
+      required this.receiverState,
+      required this.receiverArea,
+      required this.orderNumber,
+      required this.status,
+      required this.driverAssigned});
 
   @override
   List<Object> get props {
@@ -47,6 +48,7 @@ class OrderModel extends Equatable {
       receiverArea,
       orderNumber,
       status,
+      driverAssigned,
     ];
   }
 
@@ -63,21 +65,22 @@ class OrderModel extends Equatable {
     String? receiverArea,
     int? orderNumber,
     String? status,
+    String? driverAssigned,
   }) {
     return OrderModel(
-      senderName: senderName ?? this.senderName,
-      senderPhone: senderPhone ?? this.senderPhone,
-      senderAddress: senderAddress ?? this.senderAddress,
-      senderState: senderState ?? this.senderState,
-      senderArea: senderArea ?? this.senderArea,
-      receiverName: receiverName ?? this.receiverName,
-      receiverPhone: receiverPhone ?? this.receiverPhone,
-      receiverAddress: receiverAddress ?? this.receiverAddress,
-      receiverState: receiverState ?? this.receiverState,
-      receiverArea: receiverArea ?? this.receiverArea,
-      orderNumber: orderNumber ?? this.orderNumber,
-      status: status ?? this.status,
-    );
+        senderName: senderName ?? this.senderName,
+        senderPhone: senderPhone ?? this.senderPhone,
+        senderAddress: senderAddress ?? this.senderAddress,
+        senderState: senderState ?? this.senderState,
+        senderArea: senderArea ?? this.senderArea,
+        receiverName: receiverName ?? this.receiverName,
+        receiverPhone: receiverPhone ?? this.receiverPhone,
+        receiverAddress: receiverAddress ?? this.receiverAddress,
+        receiverState: receiverState ?? this.receiverState,
+        receiverArea: receiverArea ?? this.receiverArea,
+        orderNumber: orderNumber ?? this.orderNumber,
+        status: status ?? this.status,
+        driverAssigned: driverAssigned ?? this.driverAssigned);
   }
 
   Map<String, dynamic> toMap() {
@@ -95,25 +98,26 @@ class OrderModel extends Equatable {
     result.addAll({'receiverArea': receiverArea});
     result.addAll({'orderNumber': orderNumber});
     result.addAll({'status': status});
+    result.addAll({'driverAssigned': driverAssigned});
 
     return result;
   }
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
-      senderName: map['senderName'] ?? '',
-      senderPhone: map['senderPhone'] ?? '',
-      senderAddress: map['senderAddress'] ?? '',
-      senderState: map['senderState'] ?? '',
-      senderArea: map['senderArea'] ?? '',
-      receiverName: map['receiverName'] ?? '',
-      receiverPhone: map['receiverPhone'] ?? '',
-      receiverAddress: map['receiverAddress'] ?? '',
-      receiverState: map['receiverState'] ?? '',
-      receiverArea: map['receiverArea'] ?? '',
-      orderNumber: map['orderNumber']?.toInt() ?? 0,
-      status: map['status'] ?? '',
-    );
+        senderName: map['senderName'] ?? '',
+        senderPhone: map['senderPhone'] ?? '',
+        senderAddress: map['senderAddress'] ?? '',
+        senderState: map['senderState'] ?? '',
+        senderArea: map['senderArea'] ?? '',
+        receiverName: map['receiverName'] ?? '',
+        receiverPhone: map['receiverPhone'] ?? '',
+        receiverAddress: map['receiverAddress'] ?? '',
+        receiverState: map['receiverState'] ?? '',
+        receiverArea: map['receiverArea'] ?? '',
+        orderNumber: map['orderNumber']?.toInt() ?? 0,
+        status: map['status'] ?? '',
+        driverAssigned: map['driverAssigned'] ?? '');
   }
 
   factory OrderModel.fromSnapshot(DocumentSnapshot map) {
@@ -130,6 +134,7 @@ class OrderModel extends Equatable {
       receiverArea: map['receiverArea'] ?? '',
       orderNumber: map['orderNumber']?.toInt() ?? 0,
       status: map['status'] ?? '',
+      driverAssigned: map['driverAssigned'] ?? '',
     );
   }
 
@@ -140,6 +145,6 @@ class OrderModel extends Equatable {
 
   @override
   String toString() {
-    return 'OrderModel(senderName: $senderName, senderPhone: $senderPhone, senderAddress: $senderAddress, senderState: $senderState, senderArea: $senderArea, receiverName: $receiverName, receiverPhone: $receiverPhone, receiverAddress: $receiverAddress, receiverState: $receiverState, receiverArea: $receiverArea, orderNumber: $orderNumber, status: $status)';
+    return 'OrderModel(senderName: $senderName, senderPhone: $senderPhone, senderAddress: $senderAddress, senderState: $senderState, senderArea: $senderArea, receiverName: $receiverName, receiverPhone: $receiverPhone, receiverAddress: $receiverAddress, receiverState: $receiverState, receiverArea: $receiverArea, orderNumber: $orderNumber, status: $status, driverAssigned: $driverAssigned)';
   }
 }

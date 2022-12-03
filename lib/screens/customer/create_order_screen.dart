@@ -91,7 +91,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                   receiverState: receiverSelectedItems,
                   receiverArea: receiverAreaSelected,
                   orderNumber: orderNumber,
-                  status: "New Order");
+                  status: "New Order",
+                  driverAssigned: "No");
               await databaseService.saveOrder(orderModel);
               //TODO(1) : need to increment orderNumber here
               await databaseService.saveTracking(orderNumber);

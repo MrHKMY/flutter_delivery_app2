@@ -49,8 +49,10 @@ class OrderPendingCard extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             print("assigning driver");
-                            Get.to(() =>
-                                AdminAssignDriver(driverArea: senderArea));
+                            Get.to(() => AdminAssignDriver(
+                                  driverArea: senderArea,
+                                  orderID: orderNumber.toString(),
+                                ));
                           },
                           child: Container(
                               padding: EdgeInsets.all(10),
