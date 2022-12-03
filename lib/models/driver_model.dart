@@ -14,6 +14,7 @@ class DriverModel extends Equatable {
   final String state;
   final String area;
   final String onGoingJob;
+  final String currentJobID;
 
   DriverModel(
       {required this.userId,
@@ -23,7 +24,8 @@ class DriverModel extends Equatable {
       required this.jobCompleted,
       required this.state,
       required this.area,
-      required this.onGoingJob});
+      required this.onGoingJob,
+      required this.currentJobID});
 
   @override
   List<Object> get props {
@@ -36,29 +38,30 @@ class DriverModel extends Equatable {
       state,
       area,
       onGoingJob,
+      currentJobID
     ];
   }
 
-  DriverModel copyWith({
-    String? userId,
-    String? name,
-    String? phone,
-    String? email,
-    int? jobCompleted,
-    String? state,
-    String? area,
-    String? onGoingJob,
-  }) {
+  DriverModel copyWith(
+      {String? userId,
+      String? name,
+      String? phone,
+      String? email,
+      int? jobCompleted,
+      String? state,
+      String? area,
+      String? onGoingJob,
+      String? currentJobID}) {
     return DriverModel(
-      userId: userId ?? this.userId,
-      name: name ?? this.name,
-      phone: phone ?? this.phone,
-      status: email ?? this.status,
-      jobCompleted: jobCompleted ?? this.jobCompleted,
-      state: state ?? this.state,
-      area: area ?? this.area,
-      onGoingJob: onGoingJob ?? this.onGoingJob,
-    );
+        userId: userId ?? this.userId,
+        name: name ?? this.name,
+        phone: phone ?? this.phone,
+        status: email ?? this.status,
+        jobCompleted: jobCompleted ?? this.jobCompleted,
+        state: state ?? this.state,
+        area: area ?? this.area,
+        onGoingJob: onGoingJob ?? this.onGoingJob,
+        currentJobID: currentJobID ?? this.currentJobID);
   }
 
   Map<String, dynamic> toMap() {
@@ -72,6 +75,7 @@ class DriverModel extends Equatable {
     result.addAll({'state': state});
     result.addAll({'area': area});
     result.addAll({'onGoingJob': onGoingJob});
+    result.addAll({'currentJobID': currentJobID});
 
     return result;
   }
@@ -86,6 +90,7 @@ class DriverModel extends Equatable {
       state: snapshot['state'] ?? '',
       area: snapshot['area'] ?? '',
       onGoingJob: snapshot['onGoingJob'] ?? '',
+      currentJobID: snapshot['currentJobID'] ?? '',
     );
   }
 
@@ -99,6 +104,7 @@ class DriverModel extends Equatable {
       state: map['state'] ?? '',
       area: map['area'] ?? '',
       onGoingJob: map['onGoingJob'],
+      currentJobID: map['currentJobID'],
     );
   }
 
@@ -109,6 +115,6 @@ class DriverModel extends Equatable {
 
   @override
   String toString() {
-    return 'DriverModel(userId: $userId, name: $name, phone: $phone, email: $status, jobCompleted: $jobCompleted, state: $state, area: $area, onGoingJob: $onGoingJob)';
+    return 'DriverModel(userId: $userId, name: $name, phone: $phone, email: $status, jobCompleted: $jobCompleted, state: $state, area: $area, onGoingJob: $onGoingJob, currentJobID: $currentJobID)';
   }
 }

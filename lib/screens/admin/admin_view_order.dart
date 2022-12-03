@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delivery_app2/controller/order_controller.dart';
+import 'package:delivery_app2/widgets/order_pending_widget.dart';
 import 'package:delivery_app2/widgets/orders_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,7 +62,7 @@ class _AdminViewOrderState extends State<AdminViewOrder> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
                     DocumentSnapshot ds = snapshot.data!.docs[index];
-                    return OrderCard(
+                    return OrderPendingCard(
                         status: ds["status"],
                         senderArea: ds["senderArea"],
                         receiverArea: ds["receiverArea"],
@@ -72,7 +73,7 @@ class _AdminViewOrderState extends State<AdminViewOrder> {
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("orders")
-                .where("status", isEqualTo: "In Progress")
+                .where("status", isEqualTo: "In-Progress")
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {

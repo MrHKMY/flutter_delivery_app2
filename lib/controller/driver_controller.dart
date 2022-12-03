@@ -15,4 +15,15 @@ class DriverController extends GetxController {
 
     super.onInit();
   }
+
+  void updateDriverStatus(
+    String driverModel,
+    String field,
+    String value,
+    String fieldJob,
+    String currentJobID,
+  ) {
+    databaseService.updateDriverStatus(
+        driverModel, field, value, fieldJob, currentJobID);
+  }
 }

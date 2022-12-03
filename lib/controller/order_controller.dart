@@ -14,4 +14,15 @@ class OrderController extends GetxController {
 
     super.onInit();
   }
+
+  void updateOrderStatus(
+    String orderNumber,
+    String fieldStatus,
+    String newStatus,
+    String fieldDriver,
+    String currentDriver,
+  ) {
+    databaseService.updateOrderStatus(
+        orderNumber, fieldStatus, newStatus, fieldDriver, currentDriver);
+  }
 }

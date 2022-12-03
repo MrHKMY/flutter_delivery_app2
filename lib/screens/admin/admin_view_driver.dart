@@ -14,6 +14,7 @@ class AdminViewDriver extends StatefulWidget {
 
 class _AdminViewDriverState extends State<AdminViewDriver> {
   final DriverController driverController = Get.put(DriverController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
