@@ -46,7 +46,7 @@ class AdminHome extends StatelessWidget {
                   onPressed: () {
                     Get.to(() => (AdminViewOrder()));
                   },
-                  child: Text("View Order/Specific State only")),
+                  child: Text("View & Assign Order")),
               ElevatedButton(
                   onPressed: () {
                     Get.to(() => (AdminViewDriver()));

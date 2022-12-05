@@ -17,8 +17,6 @@ class OrderCard extends StatelessWidget {
     required this.orderNumber,
   }) : super(key: key);
 
-  final OrderController locationController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Padding(

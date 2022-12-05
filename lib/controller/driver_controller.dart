@@ -6,12 +6,14 @@ import 'package:get/get.dart';
 class DriverController extends GetxController {
   final DatabaseService databaseService = DatabaseService();
   var getDrivers = <DriverModel>[].obs;
+  var getDriversJob = <DriverModel>[].obs;
   String data = "no data";
   bool isLoading = false;
 
   @override
   void onInit() {
     getDrivers.bindStream(databaseService.getDrivers());
+    getDriversJob.bindStream(databaseService.getDriversJob());
 
     super.onInit();
   }
