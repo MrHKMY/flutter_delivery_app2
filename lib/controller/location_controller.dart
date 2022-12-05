@@ -12,10 +12,10 @@ class LocationController extends GetxController {
   @override
   void onInit() {
     getLocation.bindStream(databaseService.getLocation());
-    getSpecific(LocationModel locationModel) {
-      getLocationSpecific
-          .bindStream(databaseService.getLocationFiltered(locationModel));
-    }
+    // getSpecific(LocationModel locationModel) {
+    //   getLocationSpecific
+    //       .bindStream(databaseService.getLocationFiltered(locationModel));
+    // }
 
     super.onInit();
   }

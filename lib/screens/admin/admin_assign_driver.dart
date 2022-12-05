@@ -70,14 +70,14 @@ class _AdminAssignDriverState extends State<AdminAssignDriver> {
                                       'status',
                                       "In-Progress",
                                       "driverAssigned",
-                                      "${ds["phone"]}");
+                                      "${ds["userId"]}");
 
-                                  // driverController.updateDriverStatus(
-                                  //     "${ds["phone"]}",
-                                  //     'onGoingJob',
-                                  //     "Yes",
-                                  //     "currentJobID",
-                                  //     widget.orderID);
+                                  driverController.updateDriverStatus(
+                                      "${ds["phone"]}",
+                                      'onGoingJob',
+                                      "Yes",
+                                      "currentJobID",
+                                      widget.orderID);
 
                                   Get.off(() => (AdminViewOrder()));
                                   print("Driver assigned.");

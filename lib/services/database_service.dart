@@ -73,6 +73,16 @@ class DatabaseService {
             snapshot.docs.map((e) => DriverModel.fromSnapshot(e)).toList());
   }
 
+  Stream<List<DriverModel>> getDriversJob() {
+    final user = FirebaseAuth.instance.currentUser!;
+    return _firebaseFirestore
+        .collection("drivers")
+        .where("userId", isEqualTo: user.uid)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((e) => DriverModel.fromSnapshot(e)).toList());
+  }
+
   saveTracking(int orderNumber) async {
     int added = orderNumber + 1;
     await _firebaseFirestore
