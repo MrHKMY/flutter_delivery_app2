@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:delivery_app2/controller/driver_controller.dart';
 import 'package:delivery_app2/screens/admin/add_location.dart';
 import 'package:delivery_app2/screens/admin/admin_view_driver.dart';
+import 'package:delivery_app2/screens/driver/driver_order_detail.dart';
 import 'package:delivery_app2/widgets/orders_widget.dart';
 import 'package:delivery_app2/widgets/signup_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,35 +25,44 @@ class DriverHome extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              //TODO : When admin assign driver, set the key using uid,
-              //  then use streambuilder below
-              //  check if order has the uid at the key, display the current driver's job
-
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection("orders")
                     .where("driverAssigned", isEqualTo: user.uid)
                     .snapshots(),
                 builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     return const Center(
                       child: Text("No current job"),
                     );
+                  } else if (snapshot.hasData) {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          DocumentSnapshot ds = snapshot.data!.docs[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(() => DriverOrderDetail(
+                                  orderNumber: ds["orderNumber"]));
+                            },
+                            child: OrderCard(
+                                status: ds["status"],
+                                senderArea: ds["senderArea"],
+                                receiverArea: ds["receiverArea"],
+                                orderNumber: ds["orderNumber"]),
+                          );
+                        });
+                  } else {
+                    return const Text("Something went wrong");
                   }
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        DocumentSnapshot ds = snapshot.data!.docs[index];
-                        return OrderCard(
-                            status: ds["status"],
-                            senderArea: ds["senderArea"],
-                            receiverArea: ds["receiverArea"],
-                            orderNumber: ds["orderNumber"]);
-                      });
                 },
               ),
-
               ElevatedButton(
                   onPressed: () {}, child: const Text("Edit Profile")),
               ElevatedButton(
