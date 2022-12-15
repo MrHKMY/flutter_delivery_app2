@@ -46,17 +46,22 @@ class DriverHome extends StatelessWidget {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (BuildContext context, int index) {
                           DocumentSnapshot ds = snapshot.data!.docs[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(() => DriverOrderDetail(
-                                  orderNumber: ds["orderNumber"]));
-                            },
-                            child: OrderCard(
-                                status: ds["status"],
-                                senderArea: ds["senderArea"],
-                                receiverArea: ds["receiverArea"],
-                                orderNumber: ds["orderNumber"]),
-                          );
+                          if (ds["status"] == "In-Progress" ||
+                              ds["status"] == "Picked-Up") {
+                            return GestureDetector(
+                              onTap: () {
+                                Get.to(() => DriverOrderDetail(
+                                    orderNumber: ds["orderNumber"]));
+                              },
+                              child: OrderCard(
+                                  status: ds["status"],
+                                  senderArea: ds["senderArea"],
+                                  receiverArea: ds["receiverArea"],
+                                  orderNumber: ds["orderNumber"]),
+                            );
+                          } else {
+                            return Center(child: Text(" No current job"));
+                          }
                         });
                   } else {
                     return const Text("Something went wrong");

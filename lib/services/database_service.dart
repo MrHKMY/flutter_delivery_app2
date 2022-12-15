@@ -108,6 +108,20 @@ class DatabaseService {
             });
   }
 
+  Future<void> driverUpdateOrderStatus(
+    int orderNumber,
+    String fieldStatus,
+    String newStatus,
+  ) async {
+    final post = FirebaseFirestore.instance
+        .collection("orders")
+        .where("orderNumber", isEqualTo: orderNumber)
+        .get()
+        .then((QuerySnapshot snapshot) => {
+              snapshot.docs[0].reference.update({fieldStatus: newStatus})
+            });
+  }
+
   Future<void> updateDriverStatus(
     String driverModel,
     String field,
@@ -117,7 +131,7 @@ class DatabaseService {
   ) async {
     return _firebaseFirestore
         .collection("drivers")
-        .where("phone", isEqualTo: driverModel)
+        .where("userId", isEqualTo: driverModel)
         .get()
         .then((value) => {
               value.docs.first.reference

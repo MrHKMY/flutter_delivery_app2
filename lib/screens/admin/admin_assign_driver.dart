@@ -73,7 +73,7 @@ class _AdminAssignDriverState extends State<AdminAssignDriver> {
                                       "${ds["userId"]}");
 
                                   driverController.updateDriverStatus(
-                                      "${ds["phone"]}",
+                                      "${ds["userId"]}",
                                       'onGoingJob',
                                       "Yes",
                                       "currentJobID",

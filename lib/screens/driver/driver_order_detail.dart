@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:delivery_app2/services/database_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -50,6 +52,7 @@ class _DriverOrderDetailState extends State<DriverOrderDetail> {
                       dName: ds["receiverName"],
                       dPhone: ds["receiverPhone"],
                       dLocation: ds["receiverAddress"],
+                      orderNumber: widget.orderNumber,
                     );
                   }),
             );
@@ -73,24 +76,29 @@ class OrderDetailWidget extends StatefulWidget {
   String dName;
   String dPhone;
   String dLocation;
+  int orderNumber;
 
-  OrderDetailWidget({
-    Key? key,
-    required this.pName,
-    required this.pPhone,
-    required this.pLocation,
-    required this.dName,
-    required this.dPhone,
-    required this.dLocation,
-  }) : super(key: key);
+  OrderDetailWidget(
+      {Key? key,
+      required this.pName,
+      required this.pPhone,
+      required this.pLocation,
+      required this.dName,
+      required this.dPhone,
+      required this.dLocation,
+      required this.orderNumber})
+      : super(key: key);
 
   @override
   State<OrderDetailWidget> createState() => _OrderDetailWidgetState();
 }
 
 class _OrderDetailWidgetState extends State<OrderDetailWidget> {
+  final DatabaseService databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
     return Column(
       children: [
         Card(
@@ -115,7 +123,14 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
             Text(widget.pPhone),
             Text(widget.pLocation),
             ElevatedButton(
-                onPressed: () {}, child: const Text("Confirm picked-up")),
+                onPressed: () {
+                  databaseService.driverUpdateOrderStatus(
+                    widget.orderNumber,
+                    'status',
+                    "Picked-Up",
+                  );
+                },
+                child: const Text("Confirm picked-up")),
           ]),
         ),
         Card(
@@ -139,7 +154,18 @@ class _OrderDetailWidgetState extends State<OrderDetailWidget> {
             Text(widget.dName),
             Text(widget.dPhone),
             Text(widget.dLocation),
-            ElevatedButton(onPressed: () {}, child: const Text("Delivered"))
+            ElevatedButton(
+                onPressed: () {
+                  databaseService.driverUpdateOrderStatus(
+                    widget.orderNumber,
+                    'status',
+                    "Delivered",
+                  );
+
+                  databaseService.updateDriverStatus(
+                      user.uid, 'onGoingJob', "No", "currentJobID", "");
+                },
+                child: const Text("Delivered"))
           ]),
         ),
       ],
