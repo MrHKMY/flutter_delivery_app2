@@ -1,16 +1,7 @@
-# delivery_app2
+# Delivery App
 
-A new Flutter project.
+<img src="https://github.com/MrHKMY/flutter_delivery_app2/blob/master/assets/images/1.jpg" height="600">   <img src="https://github.com/MrHKMY/flutter_delivery_app2/blob/master/assets/images/3.jpg" height="600">
 
-## Getting Started
+<img src="https://github.com/MrHKMY/flutter_delivery_app2/blob/master/assets/images/5.jpg" height="600">   <img src="https://github.com/MrHKMY/flutter_delivery_app2/blob/master/assets/images/4.jpg" height="600">
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://github.com/MrHKMY/flutter_delivery_app2/blob/master/assets/images/2.jpg" height="600">
